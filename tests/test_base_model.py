@@ -28,7 +28,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertNotEqual(old_updated, self.base_model.updated_at)
 
     def test_str_representation(self):
-        expected_str = f"[BaseModel] ({self.base_model.id}) {self.base_model.__dict__}"
+        expected_str = "[BaseModel] ({}) {}".format(self.base_model.id, self.base_model.__dict__)
         self.assertEqual(str(self.base_model), expected_str)
 
     def test_to_dict_type(self):
@@ -57,6 +57,14 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(base_model.name, 'Test Name')
         self.assertIsInstance(base_model.created_at, datetime)
         self.assertIsInstance(base_model.updated_at, datetime)
+
+    def test_instantiation_with_to_dict(self):
+        original_model = BaseModel()
+        original_dict = original_model.to_dict()
+        new_model = BaseModel(**original_dict)
+        self.assertEqual(new_model.id, original_model.id)
+        self.assertEqual(new_model.created_at, original_model.created_at)
+        self.assertEqual(new_model.updated_at, original_model.updated_at)
 
 if __name__ == '__main__':
     unittest.main()
