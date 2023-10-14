@@ -2,7 +2,7 @@ import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 
-class TestBaseModelAttributes(unittest.TestCase):
+class TestBaseModel(unittest.TestCase):
     def setUp(self):
         self.base_model = BaseModel()
 
@@ -16,31 +16,16 @@ class TestBaseModelAttributes(unittest.TestCase):
         new_model = BaseModel()
         self.assertNotEqual(new_model.id, self.base_model.id)
 
-    def test_name_attribute(self):
-        self.base_model.name = "John Doe"
-        self.assertEqual(self.base_model.name, "John Doe")
+    def test_created_at_type(self):
+        self.assertIsInstance(self.base_model.created_at, datetime)
 
-class TestBaseModelDates(unittest.TestCase):
-    def setUp(self):
-        self.base_model = BaseModel()
-
-    def tearDown(self):
-        del self.base_model
-
-    def test_created_updated_equal(self):
-        self.assertEqual(self.base_model.created_at.year, self.base_model.updated_at.year)
+    def test_updated_at_type(self):
+        self.assertIsInstance(self.base_model.updated_at, datetime)
 
     def test_save_updates_updated(self):
         old_updated = self.base_model.updated_at
         self.base_model.save()
         self.assertNotEqual(old_updated, self.base_model.updated_at)
-
-class TestBaseModelRepresentation(unittest.TestCase):
-    def setUp(self):
-        self.base_model = BaseModel()
-
-    def tearDown(self):
-        del self.base_model
 
     def test_str_representation(self):
         expected_str = f"[BaseModel] ({self.base_model.id}) {self.base_model.__dict__}"
@@ -60,26 +45,18 @@ class TestBaseModelRepresentation(unittest.TestCase):
         self.assertIsInstance(obj_dict['created_at'], str)
         self.assertIsInstance(obj_dict['updated_at'], str)
 
-class TestBaseModelInstantiation(unittest.TestCase):
-    def setUp(self):
-        base_model_dict = {
+    def test_instantiation_with_attributes(self):
+        attributes = {
             'id': 'test_id',
             'created_at': datetime.now().isoformat(),
             'updated_at': datetime.now().isoformat(),
+            'name': 'Test Name'
         }
-        self.base_model = BaseModel(**base_model_dict)
-
-    def tearDown(self):
-        del self.base_model
-
-    def test_id(self):
-        self.assertEqual(self.base_model.id, 'test_id')
-
-    def test_created_at_type(self):
-        self.assertIsInstance(self.base_model.created_at, datetime)
-
-    def test_updated_at_type(self):
-        self.assertIsInstance(self.base_model.updated_at, datetime)
+        base_model = BaseModel(**attributes)
+        self.assertEqual(base_model.id, 'test_id')
+        self.assertEqual(base_model.name, 'Test Name')
+        self.assertIsInstance(base_model.created_at, datetime)
+        self.assertIsInstance(base_model.updated_at, datetime)
 
 if __name__ == '__main__':
     unittest.main()
