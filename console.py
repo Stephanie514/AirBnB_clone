@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 import cmd
 
+
 class HBNBCommand(cmd.Cmd):
     """ Defines the HBNBCommand class """
-    
+
     prompt = '(hbnb) '
 
     def do_quit(self, arg):
@@ -18,6 +19,7 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """ No command given """
         pass
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
