@@ -1,7 +1,11 @@
 #!/usr/bin/python3
+"Import cmd, file storage and Basemodel modules"
 import cmd
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+
+
+"""Defines the HBNBCommand class"""
 
 
 class HBNBCommand(cmd.Cmd):
