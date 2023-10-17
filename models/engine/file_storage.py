@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-""" File Storage - Module """
+""" Defines file Storage - Module """
 
 import json
+import models
 
 class FileStorage:
     """
@@ -26,21 +27,23 @@ class FileStorage:
 
     def save(self):
         """ Serializes objects to a JSON file """
-        serialized_objects = {}
-        for obj_key, obj in self.__objects.items():
-            serialized_objects[obj_key] = obj.to_dict()
-        with open(self.__file_path, 'w', encoding='utf-8') as f:
-            json.dump(serialized_objects, f)
+        from models.base_model import BaseModel
+        serialzd = {}
+        for key, obj in self.__objects.items():
+            serialzd[key] = obj.to_dict()
+
+        with open(self.__file_path, mode='w', encoding="UTF8") as f:
+            json.dump(serialzd, f)
 
     def reload(self):
         """ Deserializes the JSON file to objects if it exists """
+        from models.base_model import BaseModel
         try:
             with open(self.__file_path, 'r', encoding='utf-8') as f:
-                json_data = json.load(f)
-                for obj_id, obj_dict in json_data.items():
-                    class_name = obj_dict['__class__']
-                    if class_name in models:
-                        class_ = models[class_name]
-                        self.__objects[obj_id] = class_(**obj_dict)
+                deserialzd = json.load(f)
+                for key, data in deserialzd.items():
+                    class_name, obj_id = key.split('.')
+                    obj_data = {**data, '__class__': class_name}
+                    self.__objects[key] = BaseModel(**obj_data)
         except FileNotFoundError:
             pass

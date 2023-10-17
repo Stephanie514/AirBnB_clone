@@ -10,6 +10,7 @@ from models import storage
 
 
 class BaseModel:
+    """The Parent Class"""
     def __init__(self, *args, **kwargs):
         if kwargs:
             for key, value in kwargs.items():
@@ -22,16 +23,20 @@ class BaseModel:
         else:
             self.id = str(uuid.uuid4())
             self.created_at = self.updated_at = datetime.now()
+            storage.new(self)
 
     def __str__(self):
+        """Sets print behaviour"""
         return "[{}] ({}) {}".format(self.__class__.__name__,
                                      self.id, self.__dict__)
 
     def save(self):
+        """updates current datetime and saves"""
         self.updated_at = datetime.now()
-        models.storage.save()
+        storage.save()
 
     def to_dict(self):
+        """Returns dictionary of all key and values"""
         obj_dict = {
             key: value
             for key, value in self.__dict__.items()

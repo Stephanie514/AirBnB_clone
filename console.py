@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """Import cmd, file storage and BaseModel modules"""
 import cmd
+import models
+from models import storage
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from models.state import State
