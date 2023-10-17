@@ -5,7 +5,24 @@ from models.base_model import BaseModel
 
 
 class HBNBCommand(cmd.Cmd):
-    """ Defines the HBNBCommand class """
+    """
+    HBNBCommand - Command Interpreter for AirBnB Clone.
+
+    Allows you to interact with the AirBnB Clone data model
+
+    Attributes:
+        prompt (str): The command prompt string '(hbnb) '
+
+    Methods:
+        do_quit(self, arg): Exits the program.
+        do_EOF(self, arg): Exits the program (Ctrl-D).
+        emptyline(self): No command given.
+        do_create(self, arg): Create a new model instance & save it.
+        do_show(self, arg): Show information about an instance.
+        do_destroy(self, arg): Delete an instance.
+        do_all(self, arg): Show all instances of a class.
+        do_update(self, arg): Update an instance attribute.
+    """
 
     prompt = '(hbnb) '
 
