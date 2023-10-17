@@ -1,9 +1,13 @@
 #!/usr/bin/python3
-"Import cmd, file storage and Basemodel modules"
+"""Import cmd, file storage and BaseModel modules"""
 import cmd
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
-
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 """Defines the HBNBCommand class"""
 
@@ -44,15 +48,26 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-        """Create a new instance of BaseModel and save it to the JSON file"""
+        """Create a new instance of a BaseModel class and save it to the JSON file"""
         if not arg:
             print("** class name missing **")
             return
-        try:
-            new_instance = BaseModel()
+
+        class_name = arg.strip()
+        classes = {
+            'BaseModel': BaseModel,
+            'State': State,
+            'City': City,
+            'Amenity': Amenity,
+            'Place': Place,
+            'Review': Review
+        }
+
+        if class_name in classes:
+            new_instance = classes[class_name]()
             new_instance.save()
             print(new_instance.id)
-        except Exception:
+        else:
             print("** class doesn't exist **")
 
     def do_show(self, arg):
@@ -62,17 +77,30 @@ class HBNBCommand(cmd.Cmd):
             return
 
         args = arg.split()
-        if args[0] not in storage.classes:
-            print("** class doesn't exist **")
-        elif len(args) < 2:
-            print("** instance id missing **")
-        else:
-            objects = storage.all()
-            key = args[0] + '.' + args[1]
-            if key in objects:
-                print(objects[key])
+        class_name = args[0]
+
+        classes = {
+            'BaseModel': BaseModel,
+            'State': State,
+            'City': City,
+            'Amenity': Amenity,
+            'Place': Place,
+            'Review': Review
+        }
+
+        if class_name in classes:
+            if len(args) < 2:
+                print("** instance id missing **")
             else:
-                print("** no instance found **")
+                object_id = args[1]
+                objects = FileStorage().all()
+                key = "{}.{}".format(class_name, object_id)
+                if key in objects:
+                    print(objects[key])
+                else:
+                    print("** no instance found **")
+        else:
+            print("** class doesn't exist **")
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id"""
@@ -81,31 +109,55 @@ class HBNBCommand(cmd.Cmd):
             return
 
         args = arg.split()
-        if args[0] not in storage.classes:
-            print("** class doesn't exist **")
-        elif len(args) < 2:
-            print("** instance id missing **")
-        else:
-            objects = storage.all()
-            key = args[0] + '.' + args[1]
-            if key in objects:
-                objects.pop(key)
-                storage.save()
+        class_name = args[0]
+
+        classes = {
+            'BaseModel': BaseModel,
+            'State': State,
+            'City': City,
+            'Amenity': Amenity,
+            'Place': Place,
+            'Review': Review
+        }
+
+        if class_name in classes:
+            if len(args) < 2:
+                print("** instance id missing **")
             else:
-                print("** no instance found **")
+                object_id = args[1]
+                objects = FileStorage().all()
+                key = "{}.{}".format(class_name, object_id)
+                if key in objects:
+                    del objects[key]
+                    FileStorage().save()
+                else:
+                    print("** no instance found **")
+        else:
+            print("** class doesn't exist **")
 
     def do_all(self, arg):
         """Prints all string representations of instances"""
-        objects = storage.all()
+        objects = FileStorage().all()
+
         if not arg:
             print([str(obj) for obj in objects.values()])
-            return
-        args = arg.split()
-        if args[0] in storage.classes:
-            print([str(obj) for key, obj in objects.items()
-                  if key.startswith(args[0])])
         else:
-            print("** class doesn't exist **")
+            args = arg.split()
+            class_name = args[0]
+
+            classes = {
+                'BaseModel': BaseModel,
+                'State': State,
+                'City': City,
+                'Amenity': Amenity,
+                'Place': Place,
+                'Review': Review
+            }
+
+            if class_name in classes:
+                print([str(obj) for key, obj in objects.items() if key.startswith(class_name)])
+            else:
+                print("** class doesn't exist **")
 
     def do_update(self, arg):
         """Updates an instance based on the class name and id"""
@@ -114,24 +166,40 @@ class HBNBCommand(cmd.Cmd):
             return
 
         args = arg.split()
-        if args[0] not in storage.classes:
-            print("** class doesn't exist **")
-        elif len(args) < 2:
-            print("** instance id missing **")
-        elif len(args) < 3:
-            print("** attribute name missing **")
-        elif len(args) < 4:
-            print("** value missing **")
-        else:
-            objects = storage.all()
-            key = args[0] + '.' + args[1]
-            if key not in objects:
-                print("** no instance found **")
+        class_name = args[0]
+
+        classes = {
+            'BaseModel': BaseModel,
+            'State': State,
+            'City': City,
+            'Amenity': Amenity,
+            'Place': Place,
+            'Review': Review
+        }
+
+        if class_name in classes:
+            if len(args) < 2:
+                print("** instance id missing **")
+            elif len(args) < 3:
+                print("** attribute name missing **")
+            elif len(args) < 4:
+                print("** value missing **")
             else:
-                obj = objects[key]
-                setattr(obj, args[2], args[3].strip('"'))
-                storage.save()
+                object_id = args[1]
+                attribute_name = args[2]
+                new_value = args[3].strip('"')
+                objects = FileStorage().all()
+                key = "{}.{}".format(class_name, object_id)
+                if key in objects:
+                    obj = objects[key]
+                    setattr(obj, attribute_name, new_value)
+                    obj.save()
+                else:
+                    print("** no instance found **")
+        else:
+            print("** class doesn't exist **")
 
 
 if __name__ == '__main__':
+    FileStorage().reload()
     HBNBCommand().cmdloop()
