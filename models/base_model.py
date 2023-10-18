@@ -6,12 +6,12 @@ BaseModel Parent class
 
 import uuid
 from datetime import datetime
-from models import storage
 
 
 class BaseModel:
     """The Parent Class"""
     def __init__(self, *args, **kwargs):
+        from models import storage
         if kwargs:
             for key, value in kwargs.items():
                 if key != '__class__':
@@ -32,6 +32,7 @@ class BaseModel:
 
     def save(self):
         """updates current datetime and saves"""
+        from models import storage
         self.updated_at = datetime.now()
         storage.save()
 

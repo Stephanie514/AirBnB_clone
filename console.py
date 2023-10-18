@@ -2,14 +2,14 @@
 """Import cmd, file storage and BaseModel modules"""
 import cmd
 import models
-from models import storage
-from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+from models import storage
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
+from models.user import User
 
 """Defines the HBNBCommand class"""
 
@@ -53,6 +53,7 @@ class HBNBCommand(cmd.Cmd):
         """Create a new BaseModel instance
         & saves it to JSON file
         """
+        from models.base_model import BaseModel
         if not arg:
             print("** class name missing **")
             return
@@ -64,7 +65,8 @@ class HBNBCommand(cmd.Cmd):
             'City': City,
             'Amenity': Amenity,
             'Place': Place,
-            'Review': Review
+            'Review': Review,
+            'User': User
         }
 
         if class_name in classes:
@@ -89,7 +91,8 @@ class HBNBCommand(cmd.Cmd):
             'City': City,
             'Amenity': Amenity,
             'Place': Place,
-            'Review': Review
+            'Review': Review,
+            'User': User
         }
 
         if class_name in classes:
@@ -108,6 +111,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id"""
+        from models.engine.file_storage import FileStorage
         if not arg:
             print("** class name missing **")
             return
@@ -121,7 +125,8 @@ class HBNBCommand(cmd.Cmd):
             'City': City,
             'Amenity': Amenity,
             'Place': Place,
-            'Review': Review
+            'Review': Review,
+            'User': User
         }
 
         if class_name in classes:
@@ -141,6 +146,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Prints all string representations of instances"""
+        from models.engine.file_storage import FileStorage
         objects = FileStorage().all()
 
         if not arg:
@@ -155,7 +161,8 @@ class HBNBCommand(cmd.Cmd):
                 'City': City,
                 'Amenity': Amenity,
                 'Place': Place,
-                'Review': Review
+                'Review': Review,
+                'User': User
             }
 
             if class_name in classes:
@@ -166,6 +173,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         """Updates an instance based on the class name and id"""
+        from models.engine.file_storage import FileStorage
         if not arg:
             print("** class name missing **")
             return
@@ -179,7 +187,8 @@ class HBNBCommand(cmd.Cmd):
             'City': City,
             'Amenity': Amenity,
             'Place': Place,
-            'Review': Review
+            'Review': Review,
+            'User': User
         }
 
         if class_name in classes:
@@ -206,5 +215,7 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == '__main__':
+    from models.engine.file_storage import FileStorage
+
     FileStorage().reload()
     HBNBCommand().cmdloop()
