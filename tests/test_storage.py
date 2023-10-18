@@ -1,6 +1,9 @@
+#!/usr/bin/python3
+"""Defines Unittest module to test Storage"""
 import unittest
-from models.place import Place 
+from models.place import Place
 from models.engine.file_storage import FileStorage
+
 
 class TestStorage(unittest.TestCase):
     def setUp(self):
@@ -12,12 +15,12 @@ class TestStorage(unittest.TestCase):
         self.storage.save()
 
     def test_save_place(self):
-        
+
         place = Place()
         place.name = "My Place"
         self.storage.new(place)
         self.storage.save()
-        
+
         loaded_place = self.storage.all(Place).values()
         self.assertTrue(loaded_place)
 

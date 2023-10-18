@@ -1,5 +1,7 @@
 #!/usr/bin/python3
+"""Specifies the Place SubClass Module"""
 from models.base_model import BaseModel
+
 
 class Place(BaseModel):
     """Place class"""

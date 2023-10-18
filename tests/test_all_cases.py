@@ -1,9 +1,12 @@
+#!/usr/bin/python3
+"""Defines Unittest module that tests all Cases"""
 import unittest
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
+
 
 class TestAllClasses(unittest.TestCase):
     def test_state_attributes(self):
@@ -31,6 +34,7 @@ class TestAllClasses(unittest.TestCase):
         self.assertEqual(review.place_id, "")
         self.assertEqual(review.user_id, "")
         self.assertEqual(review.text, "")
+
 
 if __name__ == '__main__':
     unittest.main()

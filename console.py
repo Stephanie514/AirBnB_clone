@@ -50,7 +50,9 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-        """Create a new instance of a BaseModel class and save it to the JSON file"""
+        """Create a new BaseModel instance
+        & saves it to JSON file
+        """
         if not arg:
             print("** class name missing **")
             return
@@ -157,7 +159,8 @@ class HBNBCommand(cmd.Cmd):
             }
 
             if class_name in classes:
-                print([str(obj) for key, obj in objects.items() if key.startswith(class_name)])
+                print([str(obj) for key, obj in objects.items()
+                      if key.startswith(class_name)])
             else:
                 print("** class doesn't exist **")
 

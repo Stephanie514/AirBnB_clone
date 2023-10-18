@@ -1,5 +1,7 @@
 #!/usr/bin/python3
+"""Specifies the Review SubClass Module"""
 from models.base_model import BaseModel
+
 
 class Review(BaseModel):
     """Review class"""

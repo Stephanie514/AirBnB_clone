@@ -4,6 +4,7 @@
 import json
 import models
 
+
 class FileStorage:
     """
     Serializes and deserializes instances to and from JSON file
@@ -13,10 +14,11 @@ class FileStorage:
 
     def all(self, cls=None):
         """
-        Returns a dictionary of all objects of a specific class (or all objects)
+        Returns a dictionary of all objects of a class/ all
         """
         if cls is not None:
-            obj_dict = {k: v for k, v in self.__objects.items() if k.split(".")[0] == cls.__name__}
+            obj_dict = {k: v for k, v in self.__objects.items()
+                        if k.split(".")[0] == cls.__name__}
             return obj_dict
         return self.__objects
 
