@@ -17,7 +17,6 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-
     def all(self, cls=None):
         """
         Returns a dictionary of all objects of a class/ all
@@ -47,7 +46,7 @@ class FileStorage:
         """ Deserializes the JSON file to objects if it exists """
         from models.base_model import BaseModel
         from models import storage
-        
+
         subclss = {
             'BaseModel': BaseModel,
             'State': State,
@@ -55,8 +54,8 @@ class FileStorage:
             'Amenity': Amenity,
             'Place': Place,
             'Review': Review,
-            'User': User,
-    }
+            'User': User
+            }
         try:
             with open(self.__file_path, 'r', encoding='utf-8') as f:
                 deserialzd = json.load(f)
