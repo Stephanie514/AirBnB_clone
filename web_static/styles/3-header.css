@@ -10,3 +10,12 @@ header {
 .logo {
   margin-left: 20px;
 }
+header {
+  background-color: #484848;
+  height: 70px;
+  width: 100%;
+  border-bottom: 1px solid #CCCCCC;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
