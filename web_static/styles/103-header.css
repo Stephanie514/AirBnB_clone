@@ -1,0 +1,27 @@
+/* Header style */
+header {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Navigation style */
+nav {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+
+nav li {
+  margin: 0 15px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
