@@ -1,0 +1,29 @@
+/* styles/101-places.css */
+
+.places {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.place {
+    flex: 1;
+    border: 1px solid #DDDDDD;
+    margin: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.place .name_and_price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.place .name_and_price h2 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.place .price_by_night {
+    font-size: 20px;
+}
