@@ -1,0 +1,98 @@
+/* styles/100-places.css */
+
+/* Style for the Places section */
+.places {
+    margin-top: 40px;
+}
+
+.places article {
+    border: 1px solid #DDDDDD;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.places .name_and_price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.places .name_and_price h2 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.places .price_by_night {
+    font-size: 20px;
+}
+
+.places .information {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.places .max_guest,
+.places .number_rooms,
+.places .number_bathrooms {
+    text-align: center;
+}
+
+.places .information i {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.places .user {
+    margin-top: 20px;
+}
+
+.places .description {
+    margin-top: 20px;
+}
+
+.places .amenities {
+    margin-top: 40px;
+}
+
+.places .amenities h2 {
+    font-size: 16px;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.places .amenities ul {
+    list-style: none;
+    padding: 0;
+}
+
+.places .amenities li {
+    margin-top: 10px;
+}
+
+/* Style for the reviews section */
+.places .reviews {
+    margin-top: 40px;
+}
+
+.places .reviews h2 {
+    font-size: 16px;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.places .reviews ul {
+    list-style: none;
+    padding: 0;
+}
+
+.places .reviews h3 {
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.places .reviews p {
+    font-size: 12px;
+    margin: 0;
+}
